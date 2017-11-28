@@ -1,0 +1,179 @@
+# This is the script to run for making a warping/astrometric solution to LMIRCam, using data taken
+# in Nov and Dev 2016
+
+# created by E.S., Nov 2016
+
+import numpy as np
+from astrom_lmircam_soln import *
+from astrom_lmircam_soln import prep_pinhole_data
+from astrom_lmircam_soln import find_pinhole_centroids
+from astrom_lmircam_soln import polywarp
+from astrom_lmircam_soln import polywarp_v2
+from astrom_lmircam_soln import dewarp
+from astrom_lmircam_soln import make_barb_plot
+from astropy.io import fits
+import matplotlib.pyplot as plt
+import pickle
+
+
+#####################################################################
+# DARK-SUBTRACT
+'''
+hdulDark = fits.open(raw_pinholes_data_stem+'calibrationFrames/pinhole_dark_taken20161205.fits') # dark
+bpm_pinholes = fits.open(raw_pinholes_data_stem+'calibrationFrames/pinhole_bpm.fits') # bad pixel mask
+for frameNum in range(0,89): # dark-subtract
+    thisFileName = raw_pinholes_data_stem+'lm_161122_'+'%05i'%frameNum+'.fits'
+    hdulRawArray = fits.open(thisFileName)
+    prep_pinhole_data.dark_subtract(hdulDark,hdulRawArray,bpm_pinholes,\
+                                             calibrated_pinholes_data_stem+'lm_161122_'+'%05i'%frameNum+'.fits')
+    print(frameNum)
+'''   
+# need to incorporate bad pixel fixing, as well as median-taking of the pinhole images (done in IDL now)
+
+#####################################################################
+# RETRIEVE MEDIAN PINHOLE GRID IMAGE, FIND PINHOLE CENTERS
+
+hdul = fits.open(calibrated_pinholes_data_stem+'pinhole_image_median_vignettingBlocked.fits') # median image of pinholes
+imagePinholes = hdul[0].data.copy()
+xCoordsGuessesFullGrid, yCoordsGuessesFullGrid = find_pinhole_centroids.put_down_grid_guesses(48.0,0.65)
+xCoordsFoundAutomated, yCoordsFoundAutomated = find_pinhole_centroids.find_psf_centers(imagePinholes,20.,50000.)
+
+# locations of pinholes that the above routine missed
+xCoordsMissed = [71.774,697.353,1460.66]
+yCoordsMissed = [1267.57,1404.06,737.932]
+
+# remove subset of pinhole guesses that are in the vignetted region
+xCoordsGuesses = xCoordsGuessesFullGrid[np.where(np.logical_or(xCoordsGuessesFullGrid>36,yCoordsGuessesFullGrid>760))]
+yCoordsGuesses = yCoordsGuessesFullGrid[np.where(np.logical_or(xCoordsGuessesFullGrid>36,yCoordsGuessesFullGrid>760))]
+
+# concatenate 
+xCoordsFound = np.concatenate((xCoordsFoundAutomated,xCoordsMissed), axis=0)
+yCoordsFound = np.concatenate((yCoordsFoundAutomated,yCoordsMissed), axis=0)
+
+# make x,y entries correspond to the same pinholes ('ideal' equivalent to 'guessed' coordinates)
+xIdeal_sorted, yIdeal_sorted, xFound_sorted, yFound_sorted = find_pinhole_centroids.consistency_xy_found_guesses(xCoordsGuesses,yCoordsGuesses,xCoordsFound,yCoordsFound)
+
+# use polywarp to map the x,y lists together (note order of the arguments: warped coords xi,yi; then dewarped coords xo,yo)
+Kx, Ky = polywarp.polywarp(xFound_sorted, # based directly off IDL fcn (tested against another one, too)
+                           yFound_sorted,
+                           xIdeal_sorted,
+                           yIdeal_sorted,
+                           degree=3)
+
+import ipdb; ipdb.set_trace()
+# map the coordinates (below couple functions taken from LEECH pipeline)
+# note- the above Kx, Ky are the same as the Kx, Ky in the LEECH pipeline (and their transposes are fed into
+# dewarp.make_dewarp_coordinates, due to coefficient definition change btwn Python and IDL)
+dewarp_coords = dewarp.make_dewarp_coordinates(imagePinholes.shape, np.array(Kx).T, np.array(Ky).T) # dewarped coords, yes? This is what plots look like
+
+# optional: dewarp the pinhole image as a check
+#dewarpedImg = dewarp.dewarp_with_precomputed_coords(imagePinholes,dewarp_coords,order=3) # np.squeeze shouldn't be a problem for displaying, right?
+#plt.imshow(dewarpedImg)
+#plt.show()
+
+#########################
+## DEWARP SCIENCE IMAGES (will need to rotate somehow afterwards; I did it in IDL)
+#########################
+# read in FITS files, dewarp them, and write them back out
+'''
+for frameNum in range(1892,2252): # range 1892-2251, inclusive
+    print('Dewarping frame %05i'%frameNum+'...')
+    imageAsterism, header = fits.getdata(calibrated_trapezium_data_stem+
+                                       'step01_darkSubtBadPixCorrect/lm_161112_'+'%05i'%frameNum+'.fits',
+                                       0, header=True)
+    dewarpedAsterism = dewarp.dewarp_with_precomputed_coords(imageAsterism,dewarp_coords,order=3)
+    fits.writeto(calibrated_trapezium_data_stem+
+                 'step02_dewarped/lm_161112_'+'%05i'%frameNum+'.fits',
+                 np.squeeze(dewarpedAsterism), header, clobber=False)
+'''
+
+'''
+# locate asterism stars on median images of each dither position and put them into a dictionary
+# (note these have to be checked, and the real ones have to be manually transferred to find_plate_scale_and_orientation.py)
+number_of_dithers = 18
+star_coords_every_dither = {} # to hold the coords of found stars
+for ditherPos in range(0,number_of_dithers):
+    print("Finding star positions in dither position "+str(ditherPos)+" ...")
+    # read in image
+    imageMedian, header = fits.getdata(calibrated_trapezium_data_stem+
+                                       'step04_ditherMedians/median_dither_'+'%02i'%ditherPos+'.fits',
+                                       0, header=True)
+    keyName = "dither_pos_"+str(ditherPos)
+    xCoordsAsterism, yCoordsAsterism = find_pinhole_centroids.find_psf_centers(imageMedian,20.,15000.) # find star locations
+    star_coords_every_dither[keyName] = np.transpose([xCoordsAsterism, yCoordsAsterism])
+    print(np.transpose([xCoordsAsterism,yCoordsAsterism]))
+    # FYI plots
+    plt.imshow(imageMedian, origin="lower")
+    plt.scatter(xCoordsAsterism, yCoordsAsterism)
+    plt.title("LMIRCam Trapezium observation, UT 2016 Nov 12\ndither position "+"%02i"%ditherPos)
+    plt.show()
+    
+# save centroids as pickle binary file (NOTE: some are false positives! need to manually check)
+pickle.dump(star_coords_every_dither, open("centroid_coords_trapezium_ut_2016_nov_12.p", "wb"))
+'''
+#########################
+## DETERMINE TRUE NORTH
+#########################
+
+# baseline combinations in dither position 0
+
+
+#########################
+## VISUALIZATION PLOT
+#########################
+# make barb map to show the distortion
+
+# even grid points before dewarping
+x_vec_grid_predewarp, y_vec_grid_predewarp, xIntervalsOnly, yIntervalsOnly = make_barb_plot.barb_grid()
+
+# do the inverse fit, to find the coefficients that take us from warped coords --> dewarped coords
+KxInv_preTransp, KyInv_preTransp = polywarp.polywarp(xIdeal_sorted,
+                                                     yIdeal_sorted,
+                                                     xFound_sorted,
+                                                     yFound_sorted,
+                                                     degree=3)
+
+KxInv = np.array(KxInv_preTransp).T # transpose due to coefficient definition change btwn Python and IDL
+KyInv = np.array(KyInv_preTransp).T
+
+dewarp_coords_inv = dewarp.make_dewarp_coordinates_sparseGrid(xIntervalsOnly, yIntervalsOnly, KxInv, KyInv) # i.e., these are the coords after dewarping
+
+x_vec_grid_postdewarp = np.squeeze(dewarp_coords_inv)[1,:,:]
+y_vec_grid_postdewarp = np.squeeze(dewarp_coords_inv)[0,:,:]
+
+x_vec_grid_diff = np.subtract(x_vec_grid_postdewarp,x_vec_grid_predewarp)
+y_vec_grid_diff = np.subtract(y_vec_grid_postdewarp,y_vec_grid_predewarp)
+
+N = 25. # cutoff distance between barb points and sampled pinhole locations
+
+closeOnes, farOnes = make_barb_plot.find_close_pts_cdist(np.transpose([np.ravel(x_vec_grid_predewarp),np.ravel(y_vec_grid_predewarp)]),
+                                                         np.transpose([xFound_sorted, yFound_sorted]), N)
+
+# make quiver plot
+sampledReg = plt.quiver((np.ravel(x_vec_grid_predewarp))[closeOnes], (np.ravel(y_vec_grid_predewarp))[closeOnes],
+           (np.ravel(x_vec_grid_diff))[closeOnes], (np.ravel(y_vec_grid_diff))[closeOnes],color='k')
+unsampledReg = plt.quiver((np.ravel(x_vec_grid_predewarp))[farOnes], (np.ravel(y_vec_grid_predewarp))[farOnes],
+           (np.ravel(x_vec_grid_diff))[farOnes], (np.ravel(y_vec_grid_diff))[farOnes],color='grey',width=0.001)
+
+# add key
+sampledKey = plt.quiverkey(sampledReg, 1.2, 0.8, 12, 'sampled region', labelpos='N',\
+                           fontproperties={'weight': 'normal','size': 'medium'})
+unsampledKey = plt.quiverkey(unsampledReg, 1.2, 0.6, 12, r'projection in' '\n' r'unsampled region' '\n' r'(mostly vignetted)', labelpos='N',\
+                           fontproperties={'weight': 'normal','size': 'medium'})
+
+# plot specs
+plt.axis([0.,2055.,0.,2055.])
+ax = plt.axes()
+ax.set_aspect(1.)
+ann = ax.annotate("+ Rotate xx $^{\circ}$\nE of N",
+                  xy=(1.2, 0.4), xycoords='axes fraction',
+                  xytext=(1.2, 0.2), textcoords='axes fraction',
+                  size=12, va="center", ha="center",
+                  )
+axes = plt.gca()
+axes.set_xlim([0,2050])
+plt.title('LMIRCam Distortion Correction Map\n(from pinhole data taken 22 Nov 2016)')
+plt.xlabel('x (pix)')
+plt.ylabel('y (pix)')
+plt.tight_layout()
+plt.show()
