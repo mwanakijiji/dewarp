@@ -17,11 +17,31 @@ def rotation_matrix(angleDegPass): # use degrees in argument
 
     return rot
 
-def put_down_grid_guesses(approxHoleSpacingPass,rotationAnglePass):
-    # puts down a simple grid that puts points as closely as possible to the pinhole images
+def put_down_grid_guesses(approxHoleSpacingPass,barrelCenterPass,barrelDegreePass,rotationAnglePass):
+    '''
+    puts down a simple grid that puts points as closely as possible to the pinhole images
+    INPUTS:
+    approxHoleSpacingPass: the inter-pinhole spacing (in pixels)
+    barrelCenterPass: the center of the barrel distortion in the unrotated frame ([x,y], in pixels)
+    barrelDegreePass: the amount of barrel distortion
+    rotationAnglePass: how much does the ideal grid have to be rotated to overlay it on the observed pinholes?
+    '''
     xHoles = np.arange(9.0, 1499.0, approxHoleSpacingPass)
     yHoles = np.arange(165.0, 1655.0, approxHoleSpacingPass)
-    xHolesMeshGrid, yHolesMeshGrid = np.meshgrid(xHoles,yHoles)
+    xHolesMeshGrid, yHolesMeshGrid = np.meshgrid(xHoles,yHoles) # arrange into an (x,y) grid
+    
+    # add barrel distortion
+    test = np.multiply(
+        [xHolesMeshGrid-barrelCenterPass[0], yHolesMeshGrid-barrelCenterPass[1]], # x_u-x_0, y_u-y_0
+        np.subtract(
+            1.,
+            np.multiply(
+                np.power( np.subtract(xHolesMeshGrid,barrelCenterPass[0]), 2 )  +  np.power( np.subtract(yHolesMeshGrid,barrelCenterPass[1]), 2 ),
+                barrelDegreePass
+            )
+        )
+        )
+    import ipdb; ipdb.set_trace()
     coordMatrix = np.matrix(np.transpose([np.ravel(xHolesMeshGrid),np.ravel(yHolesMeshGrid)])) # rotate
 
     xx = (np.matmul(coordMatrix,rotation_matrix(rotationAnglePass)))[:,0]

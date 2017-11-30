@@ -21,17 +21,14 @@ import ipdb
 # RETRIEVE MEDIAN PINHOLE GRID IMAGE, FIND PINHOLE CENTERS
 
 # write the git hash
-fo=open('git_hash_match_pinholes.txt','w')
-fo.write(str(get_git_hash()))
-fo.write('\n')
-fo.close()
-ipdb.set_trace()
+write_hash('git_hash_match_pinholes.txt')
 
 # (note this section will require multiple run-throughs until optimal parameters are specified: the ideal grid coords, the missed pinhole coords, etc.)
 
-hdul = fits.open(calibrated_pinholes_data_stem+'pinhole_image_median_vignettingBlocked.fits') # median image of pinholes, with vignetted regions masked
+hdul = fits.open(calibrated_pinholes_data_stem+'step02_medianed/pinhole_image_median_DXonly_171108.fits') # median image of pinholes, with vignetted regions masked
 imagePinholes = hdul[0].data.copy()
-xCoordsIdealFullGrid, yCoordsIdealFullGrid = find_pinhole_centroids.put_down_grid_guesses(48.0,0.65) # sets down an 'ideal' set of pinholes made to match the real pinholes as closely as possible
+
+xCoordsIdealFullGrid, yCoordsIdealFullGrid = find_pinhole_centroids.put_down_grid_guesses(48.0,[512,512],0.3,0.65) # sets down an 'ideal' set of pinholes made to match the real pinholes as closely as possible
 xCoordsFoundAutomated, yCoordsFoundAutomated = find_pinhole_centroids.find_psf_centers(imagePinholes,20.,50000.) # finds the actual st of pinholes
 
 # manually-found locations of pinholes that the above routine missed
