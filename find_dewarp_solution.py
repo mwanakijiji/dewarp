@@ -2,6 +2,7 @@
 # in Nov and Dev 2016
 
 # created by E.S., Nov 2016
+# revamped to be more user-friendly, Nov 2017
 
 import numpy as np
 from astrom_lmircam_soln import *
@@ -13,6 +14,7 @@ from astrom_lmircam_soln import make_barb_plot
 from astropy.io import fits
 import matplotlib.pyplot as plt
 import pickle
+import ipdb
 
 
 #####################################################################
@@ -34,7 +36,7 @@ xCoordsIdeal = xCoordsIdealFullGrid[np.where(np.logical_or(xCoordsIdealFullGrid>
                                                                yCoordsIdealFullGrid>760))]
 yCoordsIdeal = yCoordsIdealFullGrid[np.where(np.logical_or(xCoordsIdealFullGrid>36,
                                                                yCoordsIdealFullGrid>760))]
-
+ipdb.set_trace()
 # concatenate arrays
 xCoordsFound = np.concatenate((xCoordsFoundAutomated,
                                xCoordsMissed),
@@ -59,7 +61,7 @@ Kx, Ky = polywarp.polywarp(xFound_sorted,
                            xIdeal_sorted,
                            yIdeal_sorted,
                            degree=3)
-
+ipdb.set_trace()
 # map the coordinates that define the entire image plane
 # note the below couple functions appear in the LEECH pipeline, and the above Kx, Ky are the same as the Kx, Ky in the LEECH pipeline
 dewarp_coords = dewarp.make_dewarp_coordinates(imagePinholes.shape,
