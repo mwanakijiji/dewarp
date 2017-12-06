@@ -3,15 +3,20 @@
 # created by E.S., 2017 Nov 11
 
 from astrom import match_pinholes
-from astrom import find_dewarp_solution
+from astrom import find_dewarp_solution, apply_dewarp_solution
 
+filenameString = 'test2' # this string is added onto pickle files
 match_pinholes.match_pinholes(
-    translation=[110,-110],
-    holeSpacing=48.0,
-    barrelCenter=[100,512],
-    barrelAmount=-1e-9,
-    rotationAngle=-3.2,
+    [110,-110],
+    48.0,
+    [100,512],
+    -1e-9,
+    -3.2,
+    filenameString,
     plot=False) # do the reduction
 
-find_dewarp_solution()
+find_dewarp_solution.find_dewarp(
+    filenameString)
+
+apply_dewarp_solution.apply_dewarp(8597,8942,filenameString)
 

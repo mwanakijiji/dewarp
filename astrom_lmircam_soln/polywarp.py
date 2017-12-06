@@ -10,7 +10,7 @@ import sys
 import numpy as np
 from scipy.optimize import curve_fit
 
-def polywarp(xi,yi,xo,yo,degree=1):
+def polywarp(xiyi,xoyo,degree=1):
     """
     Fit a function of the form
     xi[k] = sum over i and j from 0 to degree of: kx[i,j] * xo[k]^i * yo[k]^j
@@ -18,17 +18,20 @@ def polywarp(xi,yi,xo,yo,degree=1):
     Return kx, ky
     len(xo) must be greater than or equal to (degree+1)^2
     """
+
+    # ensure numpy arrays
+    xo = np.array(xoyo[:,0])
+    yo = np.array(xoyo[:,1])
+    xi = np.array(xiyi[:,0])
+    yi = np.array(xiyi[:,1])
+   
     if len(xo) != len(yo) or len(xo) != len(xi) or len(xo) != len(yi):
         print("Error: length of xo, yo, xi, and yi must be the same")
         return
     if len(xo) < (degree+1.)**2.:
         print("Error: length of arrays must be greater than (degree+1)^2")
         return
-    # ensure numpy arrays
-    xo = np.array(xo)
-    yo = np.array(yo)
-    xi = np.array(xi)
-    yi = np.array(yi)
+
     # set up some useful variables
     degree2 = (degree+1)**2
     x = np.array([xi,yi])
