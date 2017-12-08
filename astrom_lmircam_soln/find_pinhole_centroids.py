@@ -86,6 +86,7 @@ def match_model_empirical(
         ptsModel_not_d_Pass,
         ptsEmpiricalPass,
         imagePinholesPass,
+        plotTitleStringPass,
         plot=True):
     '''
     matches nearest neighbors between model and empirical pinhole locations
@@ -118,9 +119,10 @@ def match_model_empirical(
         # list comprehension for drawing white lines between model and empirical points
         [plt.plot([xEmpirical[j],xModel_not_d[j]],[yEmpirical[j],yModel_not_d[j]], color="w") for j in range(len(xEmpirical))]
 
-        plt.title('red = empirical; yellow = distorted model; blue = undistorted model')
+        plt.title('red = empirical; yellow = distorted model; blue = undistorted model\n('+plotTitleStringPass+')')
         plt.xlabel('x (pix)')
         plt.ylabel('y (pix)')
+        print('Close the plot to proceed...')
         plt.show()
 
     # package everything

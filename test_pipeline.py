@@ -3,11 +3,14 @@
 # created by E.S., 2017 Nov 11
 
 from astrom import match_pinholes
-from astrom import find_dewarp_solution, apply_dewarp_solution
+from astrom import find_dewarp_solution, apply_dewarp_solution, derotation
 
-filenameString = '20171108_both_apertures' # this string is added onto pickle files
-plotTitleString = '2017 Nov 08 (both apertures)' # for distortion vector plot title
+dateStringShort = '171106'
+filenameString = dateStringShort+'_DX_only' # this string is added onto pickle files
+plotTitleString = '2017 Nov 08 (DX only)' # for distortion vector plot title
 
+### PART 1: FIND DEWARP SOLUTION
+'''
 # match the empirical and ideal pinholes
 match_pinholes.match_pinholes(
     [110,-110],
@@ -24,10 +27,22 @@ find_dewarp_solution.find_dewarp(
     filenameString,
     plotTitleString,
     plot=True)
+'''
+
+### PART 2: APPLY DEWARP AND DEROTATE
+startNum = 8597
+stopNum = 8942
 
 # apply solution
+'''
 apply_dewarp_solution.apply_dewarp(
-    8597,
-    8942,
+    startNum,
+    stopNum,
     filenameString)
+'''
+# derotate
+derotation.derotate_image_forloop(startNum,stopNum,dateStringShort)
 
+### PART 3: FIND PLATE SCALE
+
+# retrieve asterism 
