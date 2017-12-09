@@ -9,6 +9,10 @@ dateStringShort = '171106'
 filenameString = dateStringShort+'_DX_only' # this string is added onto pickle files
 plotTitleString = '2017 Nov 08 (DX only)' # for distortion vector plot title
 
+# frame numbers of frames that will need to be derotated and dewarped
+startNum = 8597
+stopNum = 8942
+
 ### PART 1: FIND DEWARP SOLUTION
 '''
 # match the empirical and ideal pinholes
@@ -30,10 +34,8 @@ find_dewarp_solution.find_dewarp(
 '''
 
 ### PART 2: APPLY DEWARP AND DEROTATE
-startNum = 8597
-stopNum = 8942
 
-# apply solution
+# apply dewarp solution
 '''
 apply_dewarp_solution.apply_dewarp(
     startNum,
