@@ -71,3 +71,5 @@ after some experimentation, I decided to just use lm_171106_08940.fits as the ba
 To Do:
 -  Make date string (171106) percolate through pipeline
 -  Make hashing more OO; define once, and overload as necessary
+- Pool the for-loops!
+- Incorporate corrections due to proper motions
