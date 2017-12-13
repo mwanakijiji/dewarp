@@ -37,15 +37,16 @@ find_dewarp_solution.find_dewarp(
 ### PART 2: APPLY DEWARP AND DEROTATE
 
 # apply dewarp solution
-'''
+
 apply_dewarp_solution.apply_dewarp(
     startNum,
     stopNum,
-    filenameString)
+    filenameString,
+    maskUnsampled=True)
 
 # derotate
 derotation.derotate_image_forloop(startNum,stopNum,dateStringShort)
-'''
+
 
 ### INTERMISSION, STEP 1: USER NEEDS TO MAKE DITHER MEDIANS
 
@@ -57,6 +58,6 @@ intermission.prompt_make_dithers()
 # identify asterism stars in (x,y) space
 find_asterism_star_locations.find_stars(
     dateStringShort,
-    2)
+    17)
 
 # compare position angles between pairs of stars in (x,y) and (RA,DEC)

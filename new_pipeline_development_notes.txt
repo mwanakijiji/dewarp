@@ -73,3 +73,7 @@ To Do:
 -  Make hashing more OO; define once, and overload as necessary
 - Pool the for-loops!
 - Incorporate corrections due to proper motions
+- Make index numbers display on the asterism images
+- Save image showing all stellar baselines on array
+- order of asterism stars input doesn'tmatter, right?
+- make function arguments less cryptic (i.e., viewer can see what the inputs mean from outside)

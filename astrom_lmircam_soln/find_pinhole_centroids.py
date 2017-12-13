@@ -122,6 +122,7 @@ def match_model_empirical(
         plt.title('red = empirical; yellow = distorted model; blue = undistorted model\n('+plotTitleStringPass+')')
         plt.xlabel('x (pix)')
         plt.ylabel('y (pix)')
+        print('------------------------------')
         print('Close the plot to proceed...')
         plt.show()
 
