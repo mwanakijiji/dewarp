@@ -12,10 +12,10 @@ plotTitleString = '2017 Nov 08 (DX only)' # for distortion vector plot title
 
 # frame numbers of frames that will need to be derotated and dewarped
 startNum = 8597
-stopNum = 8942
+stopNum = 8941 # inclusive
 
 ### PART 1: FIND DEWARP SOLUTION
-
+'''
 # match the empirical and ideal pinholes
 match_pinholes.match_pinholes(
     [110,-110],
@@ -37,7 +37,6 @@ find_dewarp_solution.find_dewarp(
 ### PART 2: APPLY DEWARP AND DEROTATE
 
 # apply dewarp solution
-
 apply_dewarp_solution.apply_dewarp(
     startNum,
     stopNum,
@@ -48,10 +47,9 @@ apply_dewarp_solution.apply_dewarp(
 derotation.derotate_image_forloop(startNum,stopNum,dateStringShort)
 
 
-### INTERMISSION, STEP 1: USER NEEDS TO MAKE DITHER MEDIANS
-
+### INTERMISSION: USER NEEDS TO MAKE DITHER MEDIANS
 intermission.prompt_make_dithers()
-
+'''
 
 ### PART 3: FIND PLATE SCALE
 
