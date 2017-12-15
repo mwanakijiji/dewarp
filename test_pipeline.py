@@ -3,12 +3,12 @@
 # created by E.S., 2017 Nov 11
 
 from astrom import match_pinholes
-from astrom import find_dewarp_solution, apply_dewarp_solution, derotation, intermission, find_asterism_star_locations
+from astrom import find_dewarp_solution, apply_dewarp_solution, derotation, intermission, find_asterism_star_locations, comparison
 import ipdb
 
 dateStringShort = '171106'
 filenameString = dateStringShort+'_DX_only' # this string is added onto pickle files
-plotTitleString = '2017 Nov 08 (DX only)' # for distortion vector plot title
+plotTitleString = '2017 Nov 08 (DX only)' # for plot titles
 
 # frame numbers of frames that will need to be derotated and dewarped
 startNum = 8597
@@ -49,7 +49,7 @@ derotation.derotate_image_forloop(startNum,stopNum,dateStringShort)
 
 ### INTERMISSION: USER NEEDS TO MAKE DITHER MEDIANS
 intermission.prompt_make_dithers()
-'''
+
 
 ### PART 3: FIND PLATE SCALE
 
@@ -57,5 +57,8 @@ intermission.prompt_make_dithers()
 find_asterism_star_locations.find_stars(
     dateStringShort,
     17)
-
-# compare position angles between pairs of stars in (x,y) and (RA,DEC)
+'''
+# find position angle offset and plate scale
+comparison.angOffset_plateScale(dateStringShort,
+                                plotTitleString,
+                                plot=True)
