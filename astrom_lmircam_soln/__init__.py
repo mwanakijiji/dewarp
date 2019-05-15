@@ -14,7 +14,7 @@ generalStem = os.path.expanduser('~')+'/../../media/unasemaje/Seagate Expansion 
 
 # data paths: pinholes
 raw_pinholes_data_stem = generalStem+dateStringPinholes+'/pinholeGrid/rawData/' # obtain raw science data only (don't save anything to this!)
-calibrated_pinholes_data_stem = generalStem+dateStringPinholes+'/pinholeGrid/processedData/step02_medianed/pinhole_image_median_DXonly_171108.fits' # deposit science arrays after bias-subtraction, flat-fielding, etc.
+calibrated_pinholes_data_stem = "dx_pinholes_190125.fits" # deposit science arrays after bias-subtraction, flat-fielding, etc.
 #save_pinholes_data_stem = generalStem+'/textfile_results/' # deposit polynomial fit data
 
 # data paths: trapezium

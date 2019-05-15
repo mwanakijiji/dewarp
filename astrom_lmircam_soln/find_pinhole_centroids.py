@@ -6,6 +6,7 @@
 import numpy as np
 import scipy
 from astropy.io import fits
+import matplotlib
 import matplotlib.pyplot as plt
 import photutils
 from photutils import DAOStarFinder
@@ -107,14 +108,14 @@ def match_model_empirical(
     yModel_not_d = ptsModel_not_d_Pass[indicesOfInterest[1][:]][:,1]
 
     if plot: # make a plot to check mapping between coordinates
-        
         # image background
+        print(matplotlib.get_backend())
         plt.imshow(imagePinholesPass, origin="lower", cmap="gray")
         
         # plot coordinates
         plt.scatter(xEmpirical,yEmpirical,color="red")
-        plt.scatter(xModel_d,yModel_d,color="yellow") # distorted
-        plt.scatter(xModel_not_d,yModel_not_d,color="blue") # not distorted
+        plt.scatter(np.squeeze(np.array(xModel_d)),np.squeeze(np.array(yModel_d)),color="yellow") # distorted
+        plt.scatter(np.squeeze(np.array(xModel_not_d)),np.squeeze(np.array(yModel_not_d)),color="blue") # not distorted
         
         # list comprehension for drawing white lines between model and empirical points
         [plt.plot([xEmpirical[j],xModel_not_d[j]],[yEmpirical[j],yModel_not_d[j]], color="w") for j in range(len(xEmpirical))]
