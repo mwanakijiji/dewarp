@@ -19,9 +19,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'RR Lyrae Metallicity'
-copyright = '2018, Eckhart Spalding, Ron Wilhelm, Nathan De Lee, Kenneth Carrell'
-author = 'Eckhart Spalding, Ron Wilhelm, Nathan De Lee, Kenneth Carrell'
+project = 'Dewarp'
+copyright = '2019, Eckhart Spalding'
+author = 'Eckhart Spalding'
 
 # The short X.Y version
 version = ''
