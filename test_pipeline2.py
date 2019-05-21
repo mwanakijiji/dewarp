@@ -6,25 +6,26 @@ from astrom import match_pinholes
 from astrom import find_dewarp_solution, apply_dewarp_solution, derotation, intermission, find_asterism_star_locations, comparison
 import ipdb
 
-dateStringShort = '171106'
-filenameString = dateStringShort+'_DX_only' # this string is added onto pickle files
-plotTitleString = '2017 Nov 08 (DX only)' # for plot titles
+dateStringShort = "190125"
+filenameString = "test_string" # this string is added onto pickle files
+plotTitleString = 'UT 2019 Jan 25 (DX only)' # for plot titles
 
 # frame numbers of frames that will need to be derotated and dewarped
-startNum = 8597
-stopNum = 8941 # inclusive
+#startNum = 8597
+#stopNum = 8941 # inclusive
 
 ### PART 1: FIND DEWARP SOLUTION
 # match the empirical and ideal pinholes
 match_pinholes.match_pinholes(
-    translationPass = [110,-110],
-    holeSpacingPass = 48.0,
-    barrelCenterPass = [100,512],
-    barrelAmountPass = -1e-9,
-    rotationAnglePass = -3.2,
-    writeoutString = filenameString,
-    plotTitleString = plotTitleString,
+    [110,-110],
+    48.0,
+    [100,512],
+    -1e-9,
+    -3.2,
+    filenameString,
+    plotTitleString,
     plot=True) # add another flag for when user is just testing model grid first
+
 '''
 # work out the solution
 find_dewarp_solution.find_dewarp(
