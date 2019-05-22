@@ -1,4 +1,4 @@
-Finding the dewarp solution
+Dewarping
 =================
 This software is for dewarping the illumination beam on a detector
 based on a known 'perfect' distribution of point source, and also for
@@ -17,6 +17,9 @@ this to be helpful.) Schematically, what is being done is shown in
 cartoon form in Fig. 3.
 
 (Fig. 3 in procedure)
+.. image:: images/kinks2.png
+	   :width: 400
+	   :alt: Alternative text
 
 dewarp with precomputed coords()
 
