@@ -18,10 +18,6 @@ config.read("astrom/config.ini")
 
 dateStringShort = config["dataset_string"]["DATE_SHORT"]
 
-# frame numbers of frames that will need to be derotated and dewarped
-#startNum = 8597
-#stopNum = 8941 # inclusive
-
 # make the directories
 make_dirs()
 
@@ -45,30 +41,25 @@ find_dewarp_solution.find_dewarp(
     fileString = config["dataset_string"]["DATASET_STRING"],
     dateString = config["dataset_string"]["PLOT_TITLE_STRING"],
     plot=True)
-
+'''
 ### PART 2: APPLY DEWARP AND DEROTATE
-
 # apply dewarp solution to asterism frames
 apply_dewarp_solution.apply_dewarp(
     writeoutString = config["dataset_string"]["DATASET_STRING"],
     maskUnsampled = True)
 
-'''
-# derotate
-derotation.derotate_image_forloop(dateStringShort)
 
-'''
-### INTERMISSION: USER NEEDS TO MAKE DITHER MEDIANS
-intermission.prompt_make_dithers()
+# derotate asterism frames
+derotation.derotate_image_forloop(dateStringShort)
 
 
 ### PART 3: FIND PLATE SCALE
 
 # identify asterism stars in (x,y) space
 find_asterism_star_locations.find_stars(
-    dateStringShort,
-    17)
-
+    dateString = dateStringShort,
+    number_of_dithers = 17)
+'''
 # find position angle offset and plate scale
 comparison.angOffset_plateScale(dateStringShort,
                                 config["dataset_string"]["PLOT_TITLE_STRING"],

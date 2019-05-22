@@ -121,7 +121,7 @@ def apply_dewarp(writeoutString='test',maskUnsampled=False):
         fits.writeto(str(config["data_dirs"]["DIR_ASTERISM_DEWARP"] + \
                          "dewarped_" + \
                          os.path.basename(asterism_frames_pre_dewarp_names[frameNum])),
-                     np.squeeze(dewarpedAsterism), header, overwrite=False)
+                     np.squeeze(dewarpedAsterism), header, overwrite=True)
 
         t.toc()
         print('------------------------------')

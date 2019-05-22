@@ -16,6 +16,12 @@ import photutils
 from photutils import DAOStarFinder
 import pandas as pd
 import pickle
+import configparser
+import glob
+
+# configuration data
+config = configparser.ConfigParser() # for parsing values in .init file
+config.read("astrom/config.ini")
 
 def find_stars(dateString,number_of_dithers):
 
@@ -24,14 +30,18 @@ def find_stars(dateString,number_of_dithers):
     # initialize dictionary to contain x,y of stars in pixel space
     dictStars = {}
 
-    for ditherPos in range(0,number_of_dithers):
+    # obtain the list of files which have been dewarped and de-rotated
+    # according to the PA in the FITS headers
+    asterism_frames_directory_retrieve = str(config["data_dirs"]["DIR_ASTERISM_DEROT"])
+    asterism_frames_post_derot_names = list(glob.glob(os.path.join(asterism_frames_directory_retrieve, "*.fits")))
+
+    for ditherPos in range(0,len(asterism_frames_post_derot_names)):
         print("------------------------------")
         print("Finding star positions in dither position "+str(ditherPos)+" ...")
 
         # read in image and header
-        imageMedian, header = fits.getdata(calibrated_trapezium_data_stem+
-                                       'step04_ditherMedians/lm_'+dateString+'_dither_'+'%02i'%ditherPos+'.fits',
-                                       0, header=True)
+        imageMedian, header = fits.getdata(asterism_frames_post_derot_names[ditherPos],
+                                           0, header=True)
         
         # find star locations; input parameters may need some fine-tuning to get good results
         coordsAsterism = find_pinhole_centroids.find_psf_centers(imageMedian,20.,800.)
@@ -59,7 +69,8 @@ def find_stars(dateString,number_of_dithers):
             #import ipdb; ipdb.set_trace()
             [plt.annotate(str(dataFrame.index.values[i]), (coordsAsterism[i,0], coordsAsterism[i,1]), fontsize=20, color="white") for i in range(len(dataFrame.index.values))] # put index numbers next to star
             plt.scatter(coordsAsterismBright[:,0], coordsAsterismBright[:,1], s=60, color="yellow")
-            plt.title("LMIRCam Trapezium observation, UT 2017 Nov 6\ndither position "+"%02i"%ditherPos)
+            plt.title("LMIRCam Trapezium observation, "+dateString+
+                      "\n"+str(os.path.basename(asterism_frames_post_derot_names[ditherPos])))
             plt.show()
 
             # which coordinates should be pickled?

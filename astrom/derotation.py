@@ -29,6 +29,7 @@ def derotate_image_forloop(dateString):
         try:
             # find PA from header
             pa = np.float(header['LBT_PARA'])
+            print(pa)
     
             # derotate
             image_derot = rot(im = image,
@@ -39,15 +40,14 @@ def derotate_image_forloop(dateString):
             #print(angle)
             print('Derotating image ' + str(os.path.basename(asterism_frames_pre_derot_names[f])) + '...')
 
-            print('ya')
             # save
             fits.writeto(str(config["data_dirs"]["DIR_ASTERISM_DEROT"] + \
                          "derotated_" + \
                          os.path.basename(asterism_frames_pre_derot_names[f])),
-                         image_derot, header, overwrite=False)
+                         image_derot, header, overwrite=True)
 
             t.toc()
-            print('------------------------------')
+            print('----------------------------------------')
 
         except:
             print("Frame " + str(os.path.basename(asterism_frames_pre_derot_names[f])) + \
