@@ -18,8 +18,10 @@ cartoon form in Fig. 3.
 
 (Fig. 3 in procedure)
 
+.. _label:
 .. figure:: images/kinks2.png
-	   :scale: 50 %
+	   :scale: 90 %
+           :align: center
 	   :alt: Alternative text
 
 dewarp with precomputed coords()
