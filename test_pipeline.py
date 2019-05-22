@@ -5,7 +5,8 @@ from astrom import \
      match_pinholes, \
      find_dewarp_solution, \
      apply_dewarp_solution, \
-     derotation, intermission, \
+     derotation, \
+     intermission, \
      find_asterism_star_locations, \
      comparison
 import configparser
@@ -18,8 +19,8 @@ config.read("astrom/config.ini")
 dateStringShort = config["dataset_string"]["DATE_SHORT"]
 
 # frame numbers of frames that will need to be derotated and dewarped
-startNum = 8597
-stopNum = 8941 # inclusive
+#startNum = 8597
+#stopNum = 8941 # inclusive
 
 # make the directories
 make_dirs()
@@ -46,7 +47,7 @@ find_dewarp_solution.find_dewarp(
     plot=True)
 
 ### PART 2: APPLY DEWARP AND DEROTATE
-'''
+
 # apply dewarp solution to asterism frames
 apply_dewarp_solution.apply_dewarp(
     writeoutString = config["dataset_string"]["DATASET_STRING"],
@@ -54,11 +55,9 @@ apply_dewarp_solution.apply_dewarp(
 
 '''
 # derotate
-derotation.derotate_image_forloop(startNum,
-                                  stopNum,
-                                  dateStringShort)
+derotation.derotate_image_forloop(dateStringShort)
 
-
+'''
 ### INTERMISSION: USER NEEDS TO MAKE DITHER MEDIANS
 intermission.prompt_make_dithers()
 

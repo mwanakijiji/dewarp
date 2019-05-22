@@ -1,4 +1,4 @@
-Finding the orientation
+Sky orientation and plate scale
 =================
 It is assumed that all the stellar astrometric images have already
 been dewarped.
