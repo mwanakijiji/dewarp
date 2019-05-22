@@ -17,8 +17,8 @@ this to be helpful.) Schematically, what is being done is shown in
 cartoon form in Fig. 3.
 
 (Fig. 3 in procedure)
-.. image:: images/kinks2.png
-	   :width: 400
+.. figure:: images/kinks2.png
+	   :scale: 50 %
 	   :alt: Alternative text
 
 dewarp with precomputed coords()
