@@ -31,8 +31,8 @@ def put_down_grid_guesses(displacementPass,approxHoleSpacingPass,barrelCenterPas
     '''
     #xHoles = np.arange(9.0, 1499.0, approxHoleSpacingPass)
     #yHoles = np.arange(165.0, 1655.0, approxHoleSpacingPass)
-    xHoles = np.arange(0.0, 2048.0, approxHoleSpacingPass)
-    yHoles = np.arange(0.0, 2048.0, approxHoleSpacingPass)
+    xHoles = np.arange(0.0, 3000.0, approxHoleSpacingPass)
+    yHoles = np.arange(0.0, 3000.0, approxHoleSpacingPass)
     xHolesMeshGrid, yHolesMeshGrid = np.meshgrid(xHoles,yHoles) # arrange into an (x,y) grid
     xHolesMeshGrid_no_d = np.copy(xHolesMeshGrid) # make copy for undistorted coordinates
     yHolesMeshGrid_no_d = np.copy(yHolesMeshGrid)
@@ -102,30 +102,39 @@ def match_model_empirical(
     indicesOfInterest = treeModel.query(ptsEmpiricalPass) # find nearest neighbors; indicesOfInterest[1][:] are array indices
     xEmpirical = ptsEmpiricalPass[:,0] # rename
     yEmpirical = ptsEmpiricalPass[:,1]
+
+    # model pinholes, with distortion
     xModel_d = ptsModel_d_Pass[indicesOfInterest[1][:]][:,0] # sort 
     yModel_d = ptsModel_d_Pass[indicesOfInterest[1][:]][:,1]
+
+    # model pinholes, after distortion removal
     xModel_not_d = ptsModel_not_d_Pass[indicesOfInterest[1][:]][:,0] # apply same sorted indices as before to undistorted model
     yModel_not_d = ptsModel_not_d_Pass[indicesOfInterest[1][:]][:,1]
 
     if plot: # make a plot to check mapping between coordinates
         # image background
         print(matplotlib.get_backend())
-        plt.imshow(imagePinholesPass, origin="lower", cmap="gray")
+        plt.imshow(imagePinholesPass, origin="lower", cmap="gray", vmin=0, vmax=2000, alpha=0.5)
+        #plt.style.use('dark_background') # dark background for better visibility
         
         # plot coordinates
         plt.scatter(xEmpirical,yEmpirical,color="red")
-        plt.scatter(np.squeeze(np.array(xModel_d)),np.squeeze(np.array(yModel_d)),color="yellow") # distorted
+        plt.scatter(np.squeeze(np.array(xModel_d)),np.squeeze(np.array(yModel_d)),color="orange") # distorted
         plt.scatter(np.squeeze(np.array(xModel_not_d)),np.squeeze(np.array(yModel_not_d)),color="blue") # not distorted
         
         # list comprehension for drawing white lines between model and empirical points
         [plt.plot([xEmpirical[j],xModel_not_d[j]],[yEmpirical[j],yModel_not_d[j]], color="w") for j in range(len(xEmpirical))]
 
-        plt.title('red = empirical; yellow = distorted model; blue = undistorted model\n('+plotTitleStringPass+')')
+        plt.title('red = empirical; orange = distorted model; blue = undistorted model\n('+plotTitleStringPass+')')
         plt.xlabel('x (pix)')
         plt.ylabel('y (pix)')
+        plt.xlim([0,2048])
+        plt.ylim([0,2048])
         print('------------------------------')
         print('Close the plot to proceed...')
+        plt.savefig("matching_grids.pdf", overwrite=True)
         plt.show()
+        plt.clf()
 
     # package everything
     coords_d_Pass = np.transpose(np.squeeze([xModel_d,yModel_d]))
