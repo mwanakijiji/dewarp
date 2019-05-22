@@ -12,7 +12,8 @@ Documentation for Dewarp
 
    introduction
    installation
-   modules
+   dewarp_soln
+   orientation
    acknowledgements
 
 
