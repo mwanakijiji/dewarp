@@ -9,7 +9,6 @@ A FITS frame of sources with patterned, known locations (like
 a pinhole grid in Fig. :numref:`pinhole_ex`).
 
 .. _pinhole_ex:
-
 .. figure:: images/pinholeGridFull.jpeg
 	   :scale: 10 %
            :align: center
