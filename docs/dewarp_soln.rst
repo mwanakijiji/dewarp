@@ -1,7 +1,14 @@
 Dewarping
 =================
-You will need a frame of sources with patterned, known locations (like
-a pinhole grid).
+Requirements: A FITS frame of sources with patterned, known locations (like
+a pinhole grid in Fig. :numref:`pinhole_ex`).
+
+.. _pinhole:
+.. figure:: images/pinholeGridFull.jpeg
+	   :scale: 90 %
+           :align: center
+	   :alt: An example of what a pinhole-grid-illuminated readout should look like. Make sure not to saturate the pinholes, so as to facilitate centroiding.
+
 
 This software is for dewarping the illumination beam on a detector
 based on a known 'perfect' distribution of point source, and also for
@@ -9,8 +16,12 @@ finding the rotation solution of the dewarped frames based on the
 known positions of stellar objects.
 
 :math:`x_{i}=\sum^{N}_{i=0}\sum^{N}_{j=0}K_{x}^{(i,j)}x_{o}^{(j)}y_{o}^{(i)}`
+
 :math:`\underbrace{y_{i}}_\text{warped}=\sum^{N}_{i=0}\sum^{N}_{j=0}K_{y}^{(i,j)}\underbrace{x_{o}^{(j)}y_{o}^{(i)}}_\text{dewarped}`
 
+
+$K_{x}^{(i,j)}$ and $K_{y}^{(i,j)}$
+      
 make dewarp coords()
 
 Within the script find dewarp solution.py, you will see some functions and arrays appear in the first section of the code that you may have to run through a couple times so that you can tweak the function inputs to values that are optimal for your data. (See comments in the code for details.) It’s also prob- ably good to mask pinholes in the heavily vignetted region of the array (Fig. 2).
