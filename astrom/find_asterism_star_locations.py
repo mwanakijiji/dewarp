@@ -64,13 +64,15 @@ def find_stars(dateString,number_of_dithers):
             #print(np.transpose([indicesArray,coordsAsterism[:,0],coordsAsterism[:,1]]))
         
             # plots for cross-checking found centroids with true stars (save plots manually as desired)
-            plt.imshow(imageMedian, origin="lower", cmap="gray")
-            plt.scatter(coordsAsterism[:,0], coordsAsterism[:,1])
+            plt.imshow(imageMedian, origin="lower", cmap="gray", vmin=0, vmax=1500)
+            plt.scatter(coordsAsterism[:,0], coordsAsterism[:,1], color="yellow", label="Questionable detections")
             #import ipdb; ipdb.set_trace()
-            [plt.annotate(str(dataFrame.index.values[i]), (coordsAsterism[i,0], coordsAsterism[i,1]), fontsize=20, color="white") for i in range(len(dataFrame.index.values))] # put index numbers next to star
-            plt.scatter(coordsAsterismBright[:,0], coordsAsterismBright[:,1], s=60, color="yellow")
+            # put index numbers next to star
+            [plt.annotate(str(dataFrame.index.values[i]), (coordsAsterism[i,0], coordsAsterism[i,1]), fontsize=20, color="white") for i in range(len(dataFrame.index.values))] 
+            plt.scatter(coordsAsterismBright[:,0], coordsAsterismBright[:,1], s=60, color="orange", label="Strong detections")
             plt.title("LMIRCam Trapezium observation, "+dateString+
                       "\n"+str(os.path.basename(asterism_frames_post_derot_names[ditherPos])))
+            plt.legend()
             plt.show()
 
             # which coordinates should be pickled?

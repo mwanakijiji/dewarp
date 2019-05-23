@@ -29,7 +29,6 @@ def derotate_image_forloop(dateString):
         try:
             # find PA from header
             pa = np.float(header['LBT_PARA'])
-            print(pa)
     
             # derotate
             image_derot = rot(im = image,

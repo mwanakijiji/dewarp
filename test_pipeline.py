@@ -32,16 +32,16 @@ match_pinholes.match_pinholes(
     barrelAmountPass = 0,
     rotationAnglePass = -0.8,
     writeoutString = config["dataset_string"]["DATASET_STRING"],
-    plotTitleString = config["dataset_string"]["PLOT_TITLE_STRING"],
+    plotTitleString = config["dataset_string"]["PINHOLE_PLOT_TITLE_STRING"],
     plot=True) # add another flag for when user is just testing model grid first
 
 
 # work out the solution
 find_dewarp_solution.find_dewarp(
     fileString = config["dataset_string"]["DATASET_STRING"],
-    dateString = config["dataset_string"]["PLOT_TITLE_STRING"],
+    dateString = config["dataset_string"]["PINHOLE_PLOT_TITLE_STRING"],
     plot=True)
-'''
+
 ### PART 2: APPLY DEWARP AND DEROTATE
 # apply dewarp solution to asterism frames
 apply_dewarp_solution.apply_dewarp(
@@ -62,6 +62,6 @@ find_asterism_star_locations.find_stars(
 '''
 # find position angle offset and plate scale
 comparison.angOffset_plateScale(dateStringShort,
-                                config["dataset_string"]["PLOT_TITLE_STRING"],
+                                config["dataset_string"]["ASTERISM_PLOT_TITLE_STRING"],
                                 plot=True)
-'''
+

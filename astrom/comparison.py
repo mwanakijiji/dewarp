@@ -20,6 +20,18 @@ from astropy.coordinates import SkyCoord
 import math
 import itertools
 
+def cdf_fcn(array_input):
+    '''
+    Return CDF of an unsorted input array of values
+    '''
+    
+    number_cum_norm = np.divide(np.arange(len(array_input)),len(array_input))
+    array_input_sort = np.sort(array_input)
+    array_cdf = np.divide(np.cumsum(array_input_sort),np.cumsum(array_input_sort)[-1])
+
+    return array_input_sort, number_cum_norm
+
+
 def order_Y(star1input, star2input, star1nameInput, star2nameInput):
     '''
     determine which object is higher in y in (x,y) space
@@ -133,13 +145,18 @@ def angOffset_plateScale(dateString,plotTitle,plot=True):
             
     ## make CDFs...
     # ...of angular offsets
-    angleDiffArraySorted = sorted(angleRadecMinusXYArray)
-    angleDiff_csf = np.cumsum(angleDiffArraySorted).astype("float32")
-    angleDiff_csf_norm = np.divide(angleDiff_csf,np.max(angleDiff_csf))
+    #angleDiffArraySorted = sorted(angleRadecMinusXYArray)
+    #angleDiff_csf = np.cumsum(angleDiffArraySorted).astype("float32")
+    #angleDiff_csf_norm = np.divide(angleDiff_csf,np.max(angleDiff_csf))
+
+    angleDiffArraySorted, number_angleDiff_cum_norm = cdf_fcn(angleRadecMinusXYArray)
+    
     # ...of plate scales
-    plateScaleArraySorted = sorted(plateScaleArray)
-    plateScale_csf = np.cumsum(plateScaleArraySorted).astype("float32")
-    plateScale_csf_norm = np.divide(plateScale_csf,np.max(plateScale_csf))
+    #plateScaleArraySorted = sorted(plateScaleArray)
+    #plateScale_csf = np.cumsum(plateScaleArraySorted).astype("float32")
+    #plateScale_csf_norm = np.divide(plateScale_csf,np.max(plateScale_csf))
+
+    plateScaleArraySorted, number_plateScale_cum_norm = cdf_fcn(plateScaleArray)
 
     ## find median, +- sigma values...
     # ...of angular offsets
@@ -178,8 +195,8 @@ def angOffset_plateScale(dateString,plotTitle,plot=True):
         ax.axvline(x=angleDiff_negSigmaPercentile,linestyle='--',color='k')
         ax.axvline(x=angleDiff_50Percentile,linestyle='-',color='k')
         ax.axvline(x=angleDiff_posSigmaPercentile,linestyle='--',color='k')
-        ax.scatter(angleDiffArraySorted, angleDiff_csf_norm)
-        ax.text(0.8, 0.1,s='Need to rotate array E of N:\n'+string1+'/+'+string2+'/-'+string3+' deg\n\nStellar baselines:\n'+str(baselineNumber))
+        ax.scatter(angleDiffArraySorted, number_angleDiff_cum_norm)
+        ax.text(0.8, 0.05,s='Need to rotate array E of N:\n'+string1+'/+'+string2+'/-'+string3+' deg\n\nStellar baselines:\n'+str(baselineNumber))
         plt.title('CDF of difference (E of N) between (RA, DEC) and (x, y) position angles on LMIRcam, '+plotTitle)
         plt.xlabel('Degrees E of N')
         plt.ylabel('Normalized CDF')
@@ -191,7 +208,7 @@ def angOffset_plateScale(dateString,plotTitle,plot=True):
         ax.axvline(x=plateScale_negSigmaPercentile,linestyle='--',color='k')
         ax.axvline(x=plateScale_50Percentile,linestyle='-',color='k')
         ax.axvline(x=plateScale_posSigmaPercentile,linestyle='--',color='k')
-        ax.scatter(plateScaleArraySorted, plateScale_csf_norm)
+        ax.scatter(plateScaleArraySorted, number_plateScale_cum_norm)
         ax.text(10.4, 0.8,s='Plate scale:\n'+string4+'/+'+string5+'/-'+string6+' mas/pix\n\nStellar baselines:\n'+str(baselineNumber))
         plt.title('Plate scale of LMIRcam, '+plotTitle)
         plt.xlabel('PS (mas/pix)')
