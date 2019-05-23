@@ -1,14 +1,23 @@
 Dewarping
 =================
-Requirements: A FITS frame of sources with patterned, known locations (like
+
+**********
+Requirements
+**********
+
+A FITS frame of sources with patterned, known locations (like
 a pinhole grid in Fig. :numref:`pinhole_ex`).
 
-.. _pinhole:
+.. _pinhole_ex:
 .. figure:: images/pinholeGridFull.jpeg
-	   :scale: 90 %
+	   :scale: 10 %
            :align: center
-	   :alt: An example of what a pinhole-grid-illuminated readout should look like. Make sure not to saturate the pinholes, so as to facilitate centroiding.
 
+		   An example of what a pinhole-grid-illuminated readout should look like. Make sure not to saturate the pinholes, so as to facilitate centroiding.
+
+**********
+The idea
+**********
 
 This software is for dewarping the illumination beam on a detector
 based on a known 'perfect' distribution of point source, and also for
