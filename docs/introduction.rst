@@ -2,9 +2,9 @@ Introduction
 =================
 This software is for
 
-#1. determining and removing detector distortion
-#2. finding a correct detector orientation relative to true North
-#3. determining the detector plate scale.
+#. determining and removing detector distortion
+#. finding a correct detector orientation relative to true North
+#. determining the detector plate scale.
 
 This was originally made for the LBTI LMIRcam detector, but is
 generalizeable to any project with reference frames of ideal sources
@@ -20,7 +20,3 @@ the identities of stars in a series of astrometric field
 frames. Following this, all lengths and angles of non-redundant baselines between pairs of
 stars is calculated to find both the plate scale and angle relative to
 true North.
-
-
-
-(eqns. 1 and 2 in procedure)

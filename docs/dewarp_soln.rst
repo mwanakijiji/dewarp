@@ -5,6 +5,8 @@ based on a known 'perfect' distribution of point source, and also for
 finding the rotation solution of the dewarped frames based on the
 known positions of stellar objects.
 
+(eqns. 1 and 2 in procedure)
+
 make dewarp coords()
 
 Within the script find dewarp solution.py, you will see some functions and arrays appear in the first section of the code that you may have to run through a couple times so that you can tweak the function inputs to values that are optimal for your data. (See comments in the code for details.) It’s also prob- ably good to mask pinholes in the heavily vignetted region of the array (Fig. 2).
