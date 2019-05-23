@@ -161,7 +161,14 @@ def angOffset_plateScale(dateString,plotTitle,plot=True):
 
     # remove degeneracy in angle conventions (i.e., -1 degree E of N vs. 359 degrees E of N)
     angleRadecMinusXYArray = single_rot_conv(angleRadecMinusXYArray)
-    
+
+    ## one-time kludge: remove some points which must be misidentifications
+    #condition_good_angles = (np.abs(angleRadecMinusXYArray) < 10)
+    #angleRadecMinusXYArray = np.extract(condition_good_angles,angleRadecMinusXYArray)
+    #condition_good_ps = np.logical_and(plateScaleArray > 9, plateScaleArray < 12)
+    #plateScaleArray = np.extract(condition_good_ps,plateScaleArray)
+    #baselineNumber = len(angleRadecMinusXYArray)
+        
     ## make CDFs...
     # ...of angular offsets
     #angleDiffArraySorted = sorted(angleRadecMinusXYArray)
@@ -215,7 +222,7 @@ def angOffset_plateScale(dateString,plotTitle,plot=True):
         ax.axvline(x=angleDiff_50Percentile,linestyle='-',color='k')
         ax.axvline(x=angleDiff_posSigmaPercentile,linestyle='--',color='k')
         ax.scatter(angleDiffArraySorted, number_angleDiff_cum_norm)
-        ax.text(0.8, 0.05,s='Need to rotate array E of N:\n'+string1+'/+'+string2+'/-'+string3+' deg\n\nStellar baselines:\n'+str(baselineNumber))
+        ax.text(angleDiffArraySorted[0], 0.05,s='Need to rotate array E of N:\n'+string1+'/+'+string2+'/-'+string3+' deg\n\nStellar baselines:\n'+str(baselineNumber))
         plt.title('CDF of difference (E of N) between (RA, DEC) and (x, y) position angles on LMIRcam, '+plotTitle)
         plt.xlabel('Degrees E of N')
         plt.ylabel('Normalized CDF')
