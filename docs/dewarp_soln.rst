@@ -1,11 +1,14 @@
 Dewarping
 =================
+You will need a frame of sources with patterned, known locations (like
+a pinhole grid).
+
 This software is for dewarping the illumination beam on a detector
 based on a known 'perfect' distribution of point source, and also for
 finding the rotation solution of the dewarped frames based on the
 known positions of stellar objects.
 
-(eqns. 1 and 2 in procedure)
+:math: `x_{i}=\sum^{N}_{i=0}\sum^{N}_{j=0}K_{x}^{(i,j)}x_{o}^{(j)}y_{o}^{(i)}`
 
 make dewarp coords()
 
