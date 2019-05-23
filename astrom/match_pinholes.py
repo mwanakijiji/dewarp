@@ -48,7 +48,7 @@ def match_pinholes(translationPass,
     write_hash('git_hash_match_pinholes.txt')
 
     # read in median image of pinholes
-    hdul = fits.open(config["src_file_names"]["PINHOLE_FITS"]) 
+    hdul = fits.open(config["data_dirs"]["DIR_PINHOLE_BASIC"] + config["src_file_names"]["PINHOLE_FITS"]) 
     imagePinholes = hdul[0].data.copy()
     
     # make model pinhole locations: distorted and undistorted

@@ -54,7 +54,7 @@ def find_dewarp(fileString='test',dateString='---',plot=True):
 
 
     # retrieve array for checking its size
-    hdul = fits.open(config["src_file_names"]["PINHOLE_FITS"]) 
+    hdul = fits.open(config["data_dirs"]["DIR_PINHOLE_BASIC"] + config["src_file_names"]["PINHOLE_FITS"]) 
     imagePinholes = hdul[0].data.copy()
 
     # map the coordinates that define the entire image plane

@@ -20,6 +20,23 @@ from astropy.coordinates import SkyCoord
 import math
 import itertools
 
+
+def single_rot_conv(input_array):
+    '''
+    Converting rotation angles to a single convention
+    (ex.: the needed rotation angle -1 and 359 E of N are the same)
+    '''
+
+    # angles above 10 degrees are weird
+    awkward_ind = np.where(input_array > 10) 
+    
+    input_array[awkward_ind] = np.subtract(input_array[awkward_ind], 360.)
+    
+    output_array = input_array
+    
+    return output_array
+
+
 def cdf_fcn(array_input):
     '''
     Return CDF of an unsorted input array of values
@@ -142,7 +159,9 @@ def angOffset_plateScale(dateString,plotTitle,plot=True):
             angleRadecMinusXYArray = np.append(angleRadecMinusXYArray,angleDiff) # append del_angle to array
             plateScaleArray = np.append(plateScaleArray,1000.*np.divide(sep_radec,dist_xy)) # append plate scale (mas/pix)
 
-            
+    # remove degeneracy in angle conventions (i.e., -1 degree E of N vs. 359 degrees E of N)
+    angleRadecMinusXYArray = single_rot_conv(angleRadecMinusXYArray)
+    
     ## make CDFs...
     # ...of angular offsets
     #angleDiffArraySorted = sorted(angleRadecMinusXYArray)

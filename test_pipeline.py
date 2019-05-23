@@ -42,12 +42,12 @@ find_dewarp_solution.find_dewarp(
     dateString = config["dataset_string"]["PINHOLE_PLOT_TITLE_STRING"],
     plot=True)
 
+
 ### PART 2: APPLY DEWARP AND DEROTATE
 # apply dewarp solution to asterism frames
 apply_dewarp_solution.apply_dewarp(
     writeoutString = config["dataset_string"]["DATASET_STRING"],
     maskUnsampled = True)
-
 
 # derotate asterism frames
 derotation.derotate_image_forloop(dateStringShort)
@@ -59,9 +59,9 @@ derotation.derotate_image_forloop(dateStringShort)
 find_asterism_star_locations.find_stars(
     dateString = dateStringShort,
     number_of_dithers = 17)
+
 '''
 # find position angle offset and plate scale
 comparison.angOffset_plateScale(dateStringShort,
                                 config["dataset_string"]["ASTERISM_PLOT_TITLE_STRING"],
                                 plot=True)
-
