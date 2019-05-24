@@ -14,7 +14,7 @@ a pinhole grid in Fig. :numref:`pinhole_ex`).
 	   :scale: 10 %
            :align: center
 
-	An example of what a pinhole-grid-illuminated readout should look like. Make sure not to saturate the pinholes, so as to facilitate centroiding.
+An example of what a pinhole-grid-illuminated readout should look like. Make sure not to saturate the pinholes, so as to facilitate centroiding.
 
 **********
 The idea
