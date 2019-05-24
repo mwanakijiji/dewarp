@@ -12,6 +12,7 @@ Documentation for Dewarp
 
    introduction
    installation
+   getting_started
    dewarp_soln
    orientation
    acknowledgements
