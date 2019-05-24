@@ -4,7 +4,7 @@ This software is for
 
 #. determining and removing detector distortion
 #. finding a correct detector orientation relative to true North
-#. determining the detector plate scale.
+#. determining the detector plate scale
 
 This was originally made for the LBTI LMIRcam detector, but is
 generalizeable to any project with reference frames of ideal sources
@@ -24,19 +24,13 @@ true North.
 Attribution
 -----------
 
-Please cite `Foreman-Mackey, Hogg, Lang & Goodman (2012)
-<http://arxiv.org/abs/1202.3665>`_ if you find this code useful in your
-research and add your paper to `the testimonials list
-<https://github.com/dfm/emcee/blob/master/docs/testimonials.rst>`_.
-The BibTeX entry for the paper is::
+Please cite `Spalding (2019)`_ if you used this code or distortion
+corrections generated from it.
+The BibTeX entry is::
 
-    @article{emcee,
-       author = {{Foreman-Mackey}, D. and {Hogg}, D.~W. and {Lang}, D. and {Goodman}, J.},
-        title = {emcee: The MCMC Hammer},
-      journal = {PASP},
-         year = 2013,
-       volume = 125,
-        pages = {306-312},
-       eprint = {1202.3665},
-          doi = {10.1086/670067}
+    @misc{dewarp,
+       author = {{Spalding}, E.},
+        title = {Dewarp},
+     howpublished = "\url{http://www.ascl.net}",
+         year = 2019
     }
