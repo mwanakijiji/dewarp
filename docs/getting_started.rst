@@ -1,3 +1,4 @@
+Getting started
 =================
 This repository provides importable functions that can be used to
 assemble a pipeline as needed. An example is in the script
