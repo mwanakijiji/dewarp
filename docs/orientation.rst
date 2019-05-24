@@ -1,11 +1,24 @@
 Sky orientation and plate scale
 =================
-It is assumed that all the stellar astrometric images have already
-been dewarped.
 
-2.1 The idea
+**********
+Requirements
+**********
 
-We find star positions in pixel space, and use baselines between every possible pair of stars to find their separations and angles relative to north at PA=0. The separations are divided by their corresponding values in arcseconds from
+#. Stellar astrometric images (preferably dewarped)
+#. A csv of known stellar targets with RA and DEC
+
+**********
+The idea
+**********
+
+We find star positions in pixel space, and compare their locations in
+RA, DEC. All possible baselines are used between identified stars to
+find their separations and angles relative to north at PA=0.
+
+**********
+Procedure
+**********
 
 (Fig. 6 in pdf)
 
@@ -15,7 +28,7 @@ find the residual angular offset of the detector. Note that in one
 frame of Ns stars, the total number of baselines among stellar pairs
 is “Ns choose 2”:
 
-(eqn 3 in pdf)
+:math:`N_{b}=\begin{pmatrix}N_{s} \\ 2\end{pmatrix} \equiv \frac{N_{s}!}{2!(N_{s}-2)!}=\frac{N_{s}(N_{s}-1)}{2}`
 
 2.2 Find stars in pixel space: find asterism star locations.py
 

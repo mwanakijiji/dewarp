@@ -61,9 +61,14 @@ You should end up with something that looks roughly like this:
 
 .. _label:
 .. figure:: images/matching_grids.pdf
-	   :scale: 90 %
+	   :scale: 100 %
            :align: center
 	   :alt: Alternative text
+
+The match with the pinholes isn't perfect, but that's okay. We just
+need to avoid aliasing. Also note that some individual pinholes
+have been missed, but the code will just interpolate through them. If
+you're picky, try changing the parameters of the centroiding and try again.
 
 find_dewarp_solution.find_dewarp()
 ^^^^^^^^^
@@ -71,6 +76,16 @@ find_dewarp_solution.find_dewarp()
 This next function takes the raw image, pastes the warped coordinates onto it, and then smooths everything out by resampling the image point-by-point over the entire image space, interpolating as needed when the coordinates are not at integer values (Fig. 4).
 As a check, closely compare the pinhole grid images before and after (Fig. 5).
 
-(Fig. 4 in procedure)
+.. _label:
+.. figure:: images/warp_dewarp_grids_annotated.pdf
+	   :scale: 50 %
+           :align: center
+	   :alt: Alternative text
 
-The last part of the script makes a lovely barb plot, putting evenly-spaced vectors over the array to show the directions that points on the readouts have to be stretched in order to dewarp it (Fig. 6).
+The last part of the script makes a barb plot, putting evenly-spaced vectors over the array to show the directions that points on the readouts have to be stretched in order to dewarp it:
+
+.. _label:
+.. figure:: images/barb_plot_sx_2019jan.pdf
+	   :scale: 50 %
+           :align: center
+	   :alt: Alternative text
