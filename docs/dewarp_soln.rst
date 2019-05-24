@@ -19,13 +19,13 @@ a pinhole grid, like this:
 The idea
 **********
 
-We want to find the polynomial coefficients that map between empirical pinhole locations and an idealized grid. We use a direct transliteration of IDL's \texttt{polywarp} procedure, which finds the coefficients $K_{x}^{(i,j)}$ and $K_{y}^{(i,j)}$ in the following polynomial mapping among $(x,y)$ coordinates between the warped and ideal readouts:
+We want to find the polynomial coefficients that map between empirical pinhole locations and an idealized grid. We use a direct transliteration of IDL's \texttt{polywarp} procedure, which finds the coefficients :math:`K_{x}^{(i,j)}$ and $K_{y}^{(i,j)}' in the following polynomial mapping among $(x,y)$ coordinates between the warped and ideal readouts:
 
 :math:`x_{i}=\sum^{N}_{i=0}\sum^{N}_{j=0}K_{x}^{(i,j)}x_{o}^{(j)}y_{o}^{(i)}`
 
 :math:`\underbrace{y_{i}}_\text{warped}=\sum^{N}_{i=0}\sum^{N}_{j=0}K_{y}^{(i,j)}\underbrace{x_{o}^{(j)}y_{o}^{(i)}}_\text{dewarped}`
 
-Note which sides of the mapping represent the `warped' and `dewarped' coordinates in this application, which may be opposite to what one may expect intuitively, or from the IDL documentation on \texttt{polywarp}. Let's see why we do it this way by plunging into the functions called within the 
+Note which sides of the mapping represent the `warped' and `dewarped' coordinates in this application, which may be opposite to what one may expect intuitively, or from the IDL documentation on `\texttt{polywarp}'. Let's see why we do it this way by plunging into the functions called within the 
       
 make dewarp coords()
 
