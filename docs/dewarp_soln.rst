@@ -5,8 +5,8 @@ Dewarping
 Requirements
 **********
 
-A FITS frame of sources with patterned, known locations (like
-a pinhole grid in Fig. :numref:`pinhole_ex`).
+A FITS frame of sources (which can be centroided like PSFs) with patterned, known locations. This could be
+a pinhole grid, like this:
 
 .. _pinhole_ex:
 
@@ -14,7 +14,6 @@ a pinhole grid in Fig. :numref:`pinhole_ex`).
 	   :scale: 10 %
            :align: center
 
-An example of what a pinhole-grid-illuminated readout should look like. Make sure not to saturate the pinholes, so as to facilitate centroiding.
 
 **********
 The idea
