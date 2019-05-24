@@ -31,7 +31,7 @@ expect intuitively, or from the IDL documentation on
 polywarp. Let's see why we do it this way by plunging into
 the functions called within the find_dewarp_solution.py script.
       
-match_pinholes.match_pinholes()
+Match empirical with model sources: match_pinholes.match_pinholes()
 ^^^^^^^^^
 
 Within the template pipeline test_pipeline.py, you will see a call to
@@ -70,7 +70,7 @@ need to avoid aliasing. Also note that some individual pinholes
 have been missed, but the code will just interpolate through them. If
 you're picky, try changing the parameters of the centroiding and try again.
 
-find_dewarp_solution.find_dewarp()
+Make the mapping: find_dewarp_solution.find_dewarp()
 ^^^^^^^^^
 
 This next function takes the raw image, pastes the warped coordinates onto it, and then smooths everything out by resampling the image point-by-point over the entire image space, interpolating as needed when the coordinates are not at integer values (Fig. 4).
@@ -89,3 +89,6 @@ The last part of the script makes a barb plot, putting evenly-spaced vectors ove
 	   :scale: 50 %
            :align: center
 	   :alt: Alternative text
+
+Apply the dewarp solution: apply_dewarp_solution.apply_dewarp()
+^^^^^^^^^
