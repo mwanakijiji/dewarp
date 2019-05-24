@@ -29,8 +29,8 @@ corrections generated from it.
 The BibTeX entry is::
 
     @misc{dewarp,
-       author = {{Spalding}, E.},
-        title = {Dewarp},
-     howpublished = "\url{http://www.ascl.net}",
-         year = 2019
+      author = {{Spalding}, E.},
+      title = {Dewarp},
+      howpublished = "\url{http://www.ascl.net}",
+      year = 2019
     }
