@@ -6,4 +6,5 @@ astrometry. The original imaging data for this is from the ACS
 Globular Cluster Treasury survey (PI-Sarajedini), and is available
 from the MAST archive.
 
-Jordan Stone wrote the rotation function used in this code.
+Jordan Stone wrote the rotation function used in this code for the
+LEECH pipeline.

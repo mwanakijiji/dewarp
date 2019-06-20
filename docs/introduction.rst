@@ -27,10 +27,15 @@ Attribution
 Please cite `Spalding (2019)` if you used this code or distortion
 corrections generated from it.
 The BibTeX entry is::
-
+  
     @misc{dewarp,
       author = {{Spalding}, E.},
       title = {Dewarp},
-      howpublished = "\url{http://www.ascl.net}",
-      year = 2019
+      keywords = {Software },
+      howpublished = {Astrophysics Source Code Library},
+      year = 2019,
+      archivePrefix = "ascl",
+      eprint = {1906.xxx},
+      adsurl = {http://adsabs.harvard.edu/abs/2013ascl.soft05002P},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
     }
