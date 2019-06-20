@@ -24,12 +24,12 @@ true North.
 Attribution
 -----------
 
-Please cite `Spalding (2019)` if you used this code or distortion
+Please cite `Spalding and Stone (2019)` if you used this code or distortion
 corrections generated from it.
 The BibTeX entry is::
   
     @misc{dewarp,
-      author = {{Spalding}, E.},
+      author = {{Spalding}, E. and J. {Stone}},
       title = {Dewarp},
       keywords = {Software },
       howpublished = {Astrophysics Source Code Library},
