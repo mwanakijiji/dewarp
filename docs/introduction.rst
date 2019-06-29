@@ -24,7 +24,7 @@ true North.
 Attribution
 -----------
 
-Please cite `Spalding and Stone (2019)` if you used this code or distortion
+Please cite Dewarp `Spalding and Stone (2019)` if you used this code or distortion
 corrections generated from it.
 The BibTeX entry is::
   
