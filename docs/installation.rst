@@ -3,7 +3,7 @@ Installation
 At the moment, if you have Python 3.5 and standard astropy packages,
 you can clone the code via
 
-.. code-block:: python
+.. code-block:: bash
 
   git clone https://github.com/mwanakijiji/dewarp.git
 
