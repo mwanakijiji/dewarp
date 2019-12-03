@@ -7,13 +7,13 @@ This software is for
 #. determining the detector plate scale
 
 This was originally made for the LBTI LMIRcam detector, but is
-generalizeable to any project with reference frames of ideal sources
-and/or an astrometric field paired with a csv of astrometric target locations.
-   
+generalizable to any project with reference frames of ideal sources
+and/or an astrometric field paired with a .csv file of astrometric target locations.
+
 The distortion removal is based on a mapping made from a distribution
 of empirical sources (like a pinhole grid) and an idealized
 distribution of point sources with a "perfect" distortion. This is
-them mapped to a perfect distribition without distortions.
+them mapped to a perfect distribution without distortions.
 
 The detector orientation and plate scale is determined by allowing the user to mark
 the identities of stars in a series of astrometric field
@@ -27,15 +27,15 @@ Attribution
 Please cite Dewarp `Spalding and Stone (2019)` if you used this code or distortion
 corrections generated from it.
 The BibTeX entry is::
-  
+
     @misc{dewarp,
       author = {{Spalding}, E. and J. {Stone}},
       title = {Dewarp},
-      keywords = {Software },
+      keywords = {Software},
       howpublished = {Astrophysics Source Code Library},
       year = 2019,
       archivePrefix = "ascl",
-      eprint = {1906.xxx},
-      adsurl = {http://adsabs.harvard.edu/abs/2013ascl.soft05002P},
+      eprint = {1907.008},
+      adsurl = {https://ui.adsabs.harvard.edu/abs/2019ascl.soft07008S/abstract},
       adsnote = {Provided by the SAO/NASA Astrophysics Data System}
     }
