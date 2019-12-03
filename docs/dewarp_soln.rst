@@ -5,8 +5,9 @@ Dewarping
 Requirements
 **********
 
-A FITS frame of sources (which can be centroided like PSFs) with patterned, known locations. This could be
-a pinhole grid, like this:
+A FITS frame of sources which can be centroided like PSFs). Image should be
+dark-subtracted and bad-pixel corrected so that the centroiding will work right.
+A useable frame may look like this:
 
 .. _pinhole_ex:
 
@@ -30,7 +31,7 @@ coordinates in this application, which may be opposite to what one may
 expect intuitively, or from the IDL documentation on
 polywarp. Let's see why we do it this way by plunging into
 the functions called within the find_dewarp_solution.py script.
-      
+
 Match empirical with model sources: match_pinholes.match_pinholes()
 ^^^^^^^^^
 
