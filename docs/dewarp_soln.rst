@@ -33,17 +33,17 @@ mapping among :math:`(x,y)` coordinates between the warped and ideal readouts:
 
 :math:`\underbrace{y_{i}}_\text{warped}=\sum^{N}_{i=0}\sum^{N}_{j=0}K_{y}^{(i,j)}\underbrace{x_{o}^{(j)}y_{o}^{(i)}}_\text{dewarped}`
 
-Note which sides of the mapping represent the `warped' and `dewarped'
+Note which sides of the mapping represent the 'warped' and 'dewarped'
 coordinates in this application, which may be opposite to what one may
 expect intuitively, or from the IDL documentation on
 polywarp. Let's see why we do it this way by plunging into
-the functions called within the find_dewarp_solution.py script.
+the functions called within the ``find_dewarp_solution.py'' script.
 
-Match empirical with model sources: match_pinholes.match_pinholes()
+Match empirical with model sources: ``match_pinholes.match_pinholes()''
 ^^^^^^^^^
 
-Within the template pipeline test_pipeline.py, you will see a call to
-match_pinholes.match_pinholes(). This overlays a model coordinate grid
+Within the template pipeline template_pipeline.py, you will see a call to
+``match_pinholes.match_pinholes()''. This overlays a model coordinate grid
 over the image that you need to try to match by tweaking the rotation,
 offset, and barrel settings. You may have to run through a couple
 times until you get a good match. The match doesn't have to
