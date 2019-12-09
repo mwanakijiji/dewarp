@@ -97,6 +97,8 @@ html_static_path = ['_static']
 #
 html_sidebars = { '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'], }
 
+# Number figures
+numfig = True
 
 # -- Options for HTMLHelp output ---------------------------------------------
 
