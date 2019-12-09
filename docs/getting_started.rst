@@ -8,8 +8,9 @@ pages.
 In the config.ini file, replace the DIR_HOME string with the path to your copy
 of the repository. (The other directories will be made by the pipeline.)
 
-Specify the the other directories in the config.ini file, such as that which
-will contain the pinhole image in the config file.
+Specify the other directories in the config.ini file (if you want to change them
+from the defaults), such as that which will contain the pinhole image in the
+config file.
 
 Run
 
@@ -17,6 +18,6 @@ Run
 
   python template_pipeline.py
 
-which will proceed to make directories with the function make_dirs() and Then
+which will proceed to make directories with the function make_dirs() and then
 get stuck, because it cannot find the FITS file of the pinholes. Put the pinhole
 image into its directory, and rerun the above command.

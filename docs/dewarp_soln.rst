@@ -1,11 +1,14 @@
 Dewarping
 =================
 
+Okay, now we're going to move past the make_dirs() function in the template
+script and actually try to remap a FITS frame onto a smoothed basis.
+
 **********
 Requirements
 **********
 
-A FITS frame of sources which can be centroided like PSFs). Image should be
+A FITS frame of sources which can be centroided like PSFs. Image should be
 dark-subtracted and bad-pixel corrected so that the centroiding will work right.
 A useable frame may look like this:
 
@@ -20,7 +23,11 @@ A useable frame may look like this:
 The idea
 **********
 
-We want to find the polynomial coefficients that map between empirical pinhole locations and an idealized grid. We use a direct transliteration of IDL's \texttt{polywarp} procedure, which finds the coefficients :math:`K_{x}^{(i,j)}` and :math:`K_{y}^{(i,j)}` in the following polynomial mapping among :math:`(x,y)` coordinates between the warped and ideal readouts:
+We want to find the polynomial coefficients that map between empirical pinhole
+locations and an idealized grid. We use a direct transliteration of IDL's
+``polywarp`` procedure, which finds the coefficients
+:math:`K_{x}^{(i,j)}` and :math:`K_{y}^{(i,j)}` in the following polynomial
+mapping among :math:`(x,y)` coordinates between the warped and ideal readouts:
 
 :math:`x_{i}=\sum^{N}_{i=0}\sum^{N}_{j=0}K_{x}^{(i,j)}x_{o}^{(j)}y_{o}^{(i)}`
 
