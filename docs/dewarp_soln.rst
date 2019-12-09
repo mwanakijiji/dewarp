@@ -51,7 +51,7 @@ be exact; we're just making a grid so that the code recognizes which
 empirical point sources it detects can be matched with model points
 
 Once that’s done, run the script again so that it runs past the
-function make_dewarp_coords(). This finds the aforementioned
+function ``make_dewarp_coords()''. This finds the aforementioned
 coefficients by solving a least-squares problem via Moore-Penrose
 pseudoinverse matrices.
 
@@ -59,7 +59,7 @@ Here is an example of a matching that left some aliasing in the form
 of a crescent. If you see aliasing like this, tweak the parameters and
 try again:
 
-.. _label:
+.. _label: kinks2
 .. figure:: images/kinks2.png
 	   :scale: 90 %
            :align: center
@@ -67,7 +67,7 @@ try again:
 
 You should end up with something that looks roughly like this:
 
-.. _label:
+.. _label: matching_grids
 .. figure:: images/matching_grids.pdf
 	   :scale: 100 %
            :align: center
@@ -81,10 +81,14 @@ you're picky, try changing the parameters of the centroiding and try again.
 Make the mapping: find_dewarp_solution.find_dewarp()
 ^^^^^^^^^
 
-This next function takes the raw image, pastes the warped coordinates onto it, and then smooths everything out by resampling the image point-by-point over the entire image space, interpolating as needed when the coordinates are not at integer values (Fig. 4).
-As a check, closely compare the pinhole grid images before and after (Fig. 5).
+This next function takes the raw image, pastes the warped coordinates onto it,
+and then smooths everything out by resampling the image point-by-point over the
+entire image space, interpolating as needed when the coordinates are not at
+integer values (Fig. :numref:`warp_dewarp_grids_annotated`). As a check,
+closely compare the pinhole grid images before and after (Fig.
+:numref:`barb_plot_sx_2019jan`).
 
-.. _label:
+.. _label: warp_dewarp_grids_annotated
 .. figure:: images/warp_dewarp_grids_annotated.pdf
 	   :scale: 50 %
            :align: center
@@ -92,7 +96,7 @@ As a check, closely compare the pinhole grid images before and after (Fig. 5).
 
 The last part of the script makes a barb plot, putting evenly-spaced vectors over the array to show the directions that points on the readouts have to be stretched in order to dewarp it:
 
-.. _label:
+.. _label: barb_plot_sx_2019jan
 .. figure:: images/barb_plot_sx_2019jan.pdf
 	   :scale: 50 %
            :align: center
