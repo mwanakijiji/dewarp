@@ -42,7 +42,7 @@ the functions called within the ``find_dewarp_solution.py`` script.
 Match empirical with model sources: ``match_pinholes.match_pinholes()``
 ^^^^^^^^^
 
-Within the template pipeline template_pipeline.py, you will see a call to
+Within the template pipeline ``template_pipeline.py``, you will see a call to
 ``match_pinholes.match_pinholes()``. This overlays a model coordinate grid
 over the image that you need to try to match by tweaking the rotation,
 offset, and barrel settings. You may have to run through a couple
@@ -78,7 +78,7 @@ need to avoid aliasing. Also note that some individual pinholes
 have been missed, but the code will just interpolate through them. If
 you're picky, try changing the parameters of the centroiding and try again.
 
-Make the mapping: find_dewarp_solution.find_dewarp()
+Make the mapping: ``find_dewarp_solution.find_dewarp()``
 ^^^^^^^^^
 
 This next function takes the raw image, pastes the warped coordinates onto it,
@@ -102,5 +102,11 @@ The last part of the script makes a barb plot, putting evenly-spaced vectors ove
            :align: center
 	   :alt: Alternative text
 
-Apply the dewarp solution: apply_dewarp_solution.apply_dewarp()
+Apply the dewarp solution
 ^^^^^^^^^
+
+There are two ways of doing this. One is to just let the pipeline run to the next
+function, ``apply_dewarp_solution.apply_dewarp()``. The second way is to copy
+and the Kx and Ky matrices that were printed to screen in the last step, and
+paste them into the script ``simple_dewarp.py'', and edit that script as necessary
+to dewarp your full dataset.
