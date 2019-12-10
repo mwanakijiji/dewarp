@@ -10,7 +10,7 @@ Requirements
 
 A FITS frame of sources which can be centroided like PSFs. Image should be
 dark-subtracted and bad-pixel corrected so that the centroiding will work right.
-A useable frame may look like this:
+It CANNOT include NaNs. A useable frame may look like this:
 
 .. _pinhole_ex:
 
@@ -108,5 +108,6 @@ Apply the dewarp solution
 There are two ways of doing this. One is to just let the pipeline run to the next
 function, ``apply_dewarp_solution.apply_dewarp()``. The second way is to copy
 and the Kx and Ky matrices that were printed to screen in the last step, and
-paste them into the script ``simple_dewarp.py'', and edit that script as necessary
-to dewarp your full dataset.
+paste them into the script ``simple_dewarp.py``, and edit that script as necessary
+to dewarp your full dataset. (For a tarball of a self-contained dewarping package,
+try :download:`this <files/standalone_dewarp_package_tarball.tar.gz>`.
