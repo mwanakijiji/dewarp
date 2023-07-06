@@ -107,4 +107,4 @@ regions == 0.3
 # dewarp_stuff/astrom_lmircam_soln/make_barb_plot.py: 2,3,4
 # dewarp_stuff/astrom_lmircam_soln/polywarp.py: 11
 # lmircam_tools/process_readout.py: 3
-scipy == 1.0.0
+scipy == 1.10.0
