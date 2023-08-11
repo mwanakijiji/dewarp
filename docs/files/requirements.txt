@@ -5,7 +5,7 @@
 # pigar -p requirements.txt -P . -i dewarp_env
 
 # astrom/__init__.py: 9
-GitPython == 3.0.5
+GitPython == 3.1.32
 
 # astrom/comparison.py: 14
 asciitable == 0.8.0
